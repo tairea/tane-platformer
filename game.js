@@ -31,7 +31,16 @@ const game = new Phaser.Game(config);
 }
 
 function create() { 
-
+  const backgroundImage = this.add.image(0, 0,'background').setOrigin(0,0);
+  backgroundImage.setScale(2, 0.8);
+  
+  const map = this.make.tilemap({ key: 'map' });
+  
+  const tileset = map.addTilesetImage('kenney_simple_platformer', 'tiles');
+  
+  const platforms = map.createStaticLayer('Platforms', tileset, 0, 200);
+  
+  platforms.setScale(0.5, 0.5);
 }
 
 function update() { 
