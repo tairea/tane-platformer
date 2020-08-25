@@ -26,10 +26,10 @@ const game = new Phaser.Game(config);
   function preload() { 
   this.load.image('ground', 'https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspritesheet_ground.png?v=1597798791918');
   this.load.image('tiles', 'https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspritesheet_tiles.png?v=1597798793579');
-  this.load.image('background', ' https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fbackground.png?v=1597805558340');
+  this.load.image('background', 'https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fbackground.png?v=1597805558340');
   this.add.image('player', 'https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player.png?v=1598396905743');
   // Load the export Tiled JSON
-  this.load.tilemapTiledJSON('map', 'https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.json?v=1598397892964');
+  this.load.tilemapTiledJSON('map', 'https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2FMap%202.json?v=1598399322987');
 }
 
 function create() { 
@@ -41,7 +41,7 @@ function create() {
   const tileset = map.addTilesetImage('spritesheet_ground', 'ground');
   
   const platforms = map.createStaticLayer('Platforms', tileset, 0, 200);
-  
+  platforms.setCollisionByExclusion(-1, true);
   platforms.setScale(0.25, 0.25);
   
   this.player = this.physics.add.sprite(50, 300, 'player');
