@@ -27,7 +27,7 @@ const game = new Phaser.Game(config);
   this.load.image('ground', 'https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspritesheet_ground.png?v=1597798791918');
   this.load.image('tiles', 'https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspritesheet_tiles.png?v=1597798793579');
   this.load.image('background', 'https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fbackground.png?v=1597805558340');
-  this.add.image('player', 'https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player.png?v=1598396905743');
+  this.load.atlas('player', 'https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player.png?v=1598396905743','https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player_atlas.json?v=1598396922994');
   // Load the export Tiled JSON
   this.load.tilemapTiledJSON('map', 'https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2FMap%202.json?v=1598399322987');
 }
@@ -48,8 +48,26 @@ function create() {
 this.player.setBounce(0.1);
 this.player.setCollideWorldBounds(true);
 this.physics.add.collider(this.player, platforms);
+this.player.setScale(0.5, 0.5);
+  this.anims.create({
+  key: 'walk',
+  frames: this.anims.generateFrameNames('player', {
+    prefix: 'robo_player_',
+    start: 2,
+    end: 3,
+  }),
+  frameRate: 10,
+  repeat: -1
+});
+  this.anims.create({
+  key: 'jump',
+  frames: [{ key: 'player', frame: 'robo_player_1' }],
+  frameRate: 10,
+});
+  this.cursors = this.input.keyboard.createCursorKeys();
+
 }
 
 function update() { 
-
+this.cameras.main.startFollow(this.player);
   }
