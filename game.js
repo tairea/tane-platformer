@@ -47,21 +47,7 @@ function preload() {
     "map",
     "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2FMap%202.json?v=1598399322987"
   );
-  // Create a sprite group for all spikes, set common properties to ensure that
-// sprites in the group don't move via gravity or by player collisions
-this.spikes = this.physics.add.group({
-  allowGravity: false,
-  immovable: true
-});
-
-// Let's get the spike objects, these are NOT sprites
-const spikeObjects = map.getObjectLayer('Spikes')['objects'];
-
-// Now we create spikes in our sprite group for each object in our map
-spikeObjects.forEach(spikeObject => {
-  // Add new spikes to our sprite group, change the start y position to meet the platform
-  const spike = this.spikes.create(spikeObject.x, spikeObject.y + 200 - spikeObject.height, 'spike').setOrigin(0, 0);
-});
+  
 }
 
 function create() {
