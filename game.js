@@ -24,6 +24,7 @@ const config = {
 const game = new Phaser.Game(config);
 
 function preload() {
+
   this.load.image(
     "ground",
     "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspritesheet_ground.png?v=1597798791918"
@@ -46,6 +47,21 @@ function preload() {
     "map",
     "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2FMap%202.json?v=1598399322987"
   );
+  // Create a sprite group for all spikes, set common properties to ensure that
+// sprites in the group don't move via gravity or by player collisions
+this.spikes = this.physics.add.group({
+  allowGravity: false,
+  immovable: true
+});
+
+// Let's get the spike objects, these are NOT sprites
+const spikeObjects = map.getObjectLayer('Spikes')['objects'];
+
+// Now we create spikes in our sprite group for each object in our map
+spikeObjects.forEach(spikeObject => {
+  // Add new spikes to our sprite group, change the start y position to meet the platform
+  const spike = this.spikes.create(spikeObject.x, spikeObject.y + 200 - spikeObject.height, 'spike').setOrigin(0, 0);
+});
 }
 
 function create() {
@@ -66,29 +82,35 @@ function create() {
   this.physics.add.collider(this.player, platforms);
   this.player.setScale(0.5, 0.5);
   
-  this.anims.create({
-    key: "walk",
-    frames: this.anims.generateFrameNames("player", {
-      prefix: "robo_player_",
-      start: 2,
-      end: 3
-    }),
-    frameRate: 10,
-    repeat: -1
-  });
+ this.anims.create({
+  key: 'walk',
+  frames: this.anims.generateFrameNames('player', {
+    prefix: 'robo_player_',
+    start: 2,
+    end: 3,
+  }),
+  frameRate: 10,
+  repeat: -1
+});
   
   
+ this.anims.create({
+  key: 'idle',
+  frames: [{ key: 'player', frame: 'robo_player_0' }],
+  frameRate: 10,
+});
+  
   this.anims.create({
-    key: "jump",
-    frames: [{ key: "player", frame: "robo_player_1" }],
-    frameRate: 10
-  });
+  key: 'jump',
+  frames: [{ key: 'player', frame: 'robo_player_1' }],
+  frameRate: 10,
+});
   
   this.cursors = this.input.keyboard.createCursorKeys();
 }
 
 function update() {
-  this.cameras.main.startFollow(this.player);
+ this.cameras.main.startFollow(this.player);
   // Control the player with left or right keys
 if (this.cursors.left.isDown) {
   this.player.setVelocityX(-200);
