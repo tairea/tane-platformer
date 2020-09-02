@@ -44,7 +44,7 @@ function preload() {
   // Load the export Tiled JSON
   this.load.tilemapTiledJSON(
     "map",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.json?v=1599010496522"
+    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.json?v=1599013155306"
   );
   this.load.image(
     "spike",
@@ -61,12 +61,13 @@ function create() {
 
   const tileset = map.addTilesetImage("spritesheet_ground", "ground");
 
-  const platforms = map.createStaticLayer("Platforms", tileset, 0, 500).setOrigin(0,0);
+  const platforms = map.createStaticLayer("Platforms", tileset, 0, 0).setOrigin(0,0);
   platforms.setCollisionByExclusion(-1, true);
   platforms.setScale(0.25, 0.25);
 
   this.player = this.physics.add.sprite(50, 300, "player");
   this.player.setBounce(0.1);
+  this.player.setScale(0.25, 0.25)
   
   // get the level rectangle
   const level1Rec = map.findObject("level", obj => obj.name === "level1");
