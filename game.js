@@ -66,7 +66,7 @@ function create() {
   platforms.setScale(0.25, 0.25);
 
   this.player = this.physics.add.sprite(50, 300, "player");
-  this.player.setBounce(0.1);
+  this.player.setBounce(0.001);
   this.player.setScale(0.25, 0.25)
   
   // get the level rectangle
@@ -85,7 +85,7 @@ function create() {
   this.cameras.main.setZoom(2);
   
   this.physics.add.collider(this.player, platforms);
-  this.player.setScale(0.5, 0.5);
+  this.player.setScale(0.25, 0.25);
   
   
   
