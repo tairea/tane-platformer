@@ -44,7 +44,7 @@ function preload() {
   // Load the export Tiled JSON
   this.load.tilemapTiledJSON(
     "map",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.json?v=1599009495546"
+    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.json?v=1599010496522"
   );
   this.load.image(
     "spike",
@@ -61,7 +61,7 @@ function create() {
 
   const tileset = map.addTilesetImage("spritesheet_ground", "ground");
 
-  const platforms = map.createStaticLayer("Platforms", tileset, 0, 200);
+  const platforms = map.createStaticLayer("Platforms", tileset, 0, 500).setOrigin(0,0);
   platforms.setCollisionByExclusion(-1, true);
   platforms.setScale(0.25, 0.25);
 
