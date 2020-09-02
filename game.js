@@ -50,6 +50,7 @@ function preload() {
     "spike",
     "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspike.png?v=1598396909712"
   );
+  this.load.image("Box", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2FboxItem_disabled_boxed.png?v=1599014831290");
 }
 
 function create() {
