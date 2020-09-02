@@ -44,7 +44,7 @@ function preload() {
   // Load the export Tiled JSON
   this.load.tilemapTiledJSON(
     "map",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.1.json?v=1599007362779"
+    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.json?v=1599009495546"
   );
   this.load.image(
     "spike",
@@ -55,7 +55,8 @@ function preload() {
 function create() {
   const backgroundImage = this.add.image(0, 0, "background").setOrigin(0, 0);
   backgroundImage.setScale(2, 0.8);
-
+  
+  
   const map = this.make.tilemap({ key: "map" });
 
   const tileset = map.addTilesetImage("spritesheet_ground", "ground");
@@ -66,9 +67,27 @@ function create() {
 
   this.player = this.physics.add.sprite(50, 300, "player");
   this.player.setBounce(0.1);
+  
+  // get the level rectangle
+  const level1Rec = map.findObject("level", obj => obj.name === "level1");
+  
+  console.log(level1Rec.width)
+  console.log(level1Rec.height)
+  
+  //world physics
+  this.physics.world.bounds.width = level1Rec.width;
+  this.physics.world.bounds.height = level1Rec.height;
   this.player.setCollideWorldBounds(true);
+  
+  //camera
+  this.cameras.main.setBounds(level1Rec.x, level1Rec.y, level1Rec.width, level1Rec.height, true);
+  this.cameras.main.setZoom(2);
+  
   this.physics.add.collider(this.player, platforms);
   this.player.setScale(0.5, 0.5);
+  
+  
+  
 
   this.anims.create({
     key: "walk",
