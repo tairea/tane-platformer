@@ -44,7 +44,7 @@ function preload() {
   // Load the export Tiled JSON
   this.load.tilemapTiledJSON(
     "map",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.json?v=1599013155306"
+    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.3.json?v=1599604781001"
   );
   this.load.image(
     "spike",
