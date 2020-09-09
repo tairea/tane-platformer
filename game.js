@@ -34,49 +34,23 @@ const config = {
 const game = new Phaser.Game(config);
 
 function preload() {
-  this.load.image(
-    "ground",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspritesheet_ground.png?v=1597798791918"
-  );
-  this.load.image(
-    "tiles",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspritesheet_tiles.png?v=1597798793579"
-  );
-  this.load.image(
-    "background",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fbackground.png?v=1597805558340"
-  );
   
-  this.load.image(
-    "spike",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspikes.png?v=1599014843516"
-  );
-  this.load.image(
-    "lavaSquare",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Flava.png?v=1599615845811"
-  );
-  this.load.image(
-    "lavaWave",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2FlavaTop_high.png?v=1599615843450"
-  );
+  // ====================== tilesheets =============================
+  this.load.image( "ground", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspritesheet_ground.png?v=1597798791918" );
+  this.load.image( "tiles", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspritesheet_tiles.png?v=1597798793579" );
   
-  this.load.image("detailTiles", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspritesheet_tiles.png?v=1597798793579");
+  this.load.image( "background", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fbackground.png?v=1597805558340" );
   
-  this.load.image("lavaWave", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2FlavaTop_high.png?v=1599615843450");
-  this.load.image("lavaSquare", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Flava.png?v=1599615845811");
+  this.load.image( "spike", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspikes.png?v=1599014843516" );
+  this.load.image( "lavaSquare", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Flava.png?v=1599615845811" );
+  this.load.image( "lavaWave", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2FlavaTop_high.png?v=1599615843450" );
   
   // ====================== player (atlas) =============================
-   this.load.atlas(
-    "player",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player.png?v=1598396905743",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player_atlas.json?v=1598396922994"
-  );
+   this.load.atlas( "player", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player.png?v=1598396905743", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player_atlas.json?v=1598396922994" );
   
   // ====================== Tiled JSON map =============================
-  this.load.tilemapTiledJSON(
-    "map",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.3.json?v=1599616815139"
-  );
+  this.load.tilemapTiledJSON( "map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.3.json?v=1599616815139" );
+  
 }
 
 function create() {
@@ -85,6 +59,7 @@ function create() {
   this.player = this.physics.add.sprite(50, 300, "player");
   this.player.setBounce(0.3);
   this.player.setScale(0.25, 0.25)
+  this.player.setDepth(100)
   
   // ====================== background =============================
   const backgroundImage = this.add.image(0, 0, "background").setOrigin(0, 0);
@@ -95,6 +70,7 @@ function create() {
   
   // ====================== tilesets =============================
   const groundTileset = map.addTilesetImage("spritesheet_ground", "ground");
+  const detailTiles = map.addTilesetImage("spritesheet_tiles", "tiles");
   
   // ====================== get the level rectangle =============================
   const level1Rec = map.findObject("levels", obj => obj.name === "level1");
@@ -105,6 +81,10 @@ function create() {
   const platforms = map.createStaticLayer("Platforms", groundTileset, 0, 0).setOrigin(0,0);
   platforms.setCollisionByExclusion(-1, true);
   platforms.setScale(0.25, 0.25);
+  
+  const lava = map.createStaticLayer("Lava", detailTiles, 0, 0).setOrigin(0,0);
+  lava.setCollisionByExclusion(-1, true);
+  lava.setScale(0.25, 0.25);
   
   // ====================== world physics =============================
   this.physics.world.bounds.width = level1Rec.width;
