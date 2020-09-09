@@ -79,28 +79,33 @@ function create() {
   console.log(level1Rec.height)
   
   // ====================== LAYERS =============================
-  var lavas = map.createFromObjects('Lava', 148, { key: 'lavaSquare' });
-  var spikes = map.createFromObjects('Spikes', 250, { key: 'spike' });
   
-  console.log(lavas)
-  
-  lavas.forEach(lavaObject => {
-    // console.log(lavaObject)
-    lavaObject.setScale(0.5,0.5).setOrigin(0,0);
-    
-  });
-  spikes.forEach(lavaObject => {
-    // console.log(lavaObject)
-    lavaObject.setScale(0.5,0.5).setOrigin(0,0);
-    
-  });
   
   const platforms = map.createStaticLayer("Platforms", groundTileset, 0, 0).setOrigin(0,0);
   platforms.setCollisionByExclusion(-1, true);
   platforms.setScale(0.25, 0.25);
   
   
+  //----- object layers
+  this.lavas = this.physics.add.group({allowGravity: false,immovable: true});
+  this.spikes = this.physics.add.group({allowGravity: false,immovable: true});
   
+  var lavaObjs = map.createFromObjects('Lava', 148, { key: 'lavaSquare' });
+  var spikesObjs = map.createFromObjects('Spikes', 250, { key: 'spike' });
+  
+  map.setCollisionByProperty({key:148});
+  
+  console.log('lavaObjs',lavaObjs)
+  console.log('spikesObjs',spikesObjs)
+  
+  lavaObjs.forEach(lavaObject => {
+    console.log('placing this lava at position: ',lavaObject.x,' ',lavaObject.y,' with a height of',lavaObject.height)
+    let lava = this.lavas.create(lavaObject.x, lavaObject.y - lavaObject.height, 'lavaSquare').setScale(0.25,0.25).setOrigin(0, 0);
+  });
+  
+  spikesObjs.forEach(spikeObject => {
+    let spike = this.spikes.create(spikeObject.x, spikeObject.y - spikeObject.height, 'spike').setOrigin(0, 0).setScale(0.25,0.25)
+  });
   
 
   
@@ -216,6 +221,8 @@ function update() {
     // otherwise, make them face the other side
     this.player.setFlipX(true);
   }
+  
+  console.log(this.player.x, this.player.y)
   
 }
 
