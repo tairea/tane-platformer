@@ -62,6 +62,9 @@ function preload() {
   
   this.load.image("detailTiles", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspritesheet_tiles.png?v=1597798793579");
   
+  this.load.image("lavaWave", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2FlavaTop_high.png?v=1599615843450");
+  this.load.image("lavaSquare", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Flava.png?v=1599615845811");
+  
   // ====================== player (atlas) =============================
    this.load.atlas(
     "player",
@@ -78,6 +81,11 @@ function preload() {
 
 function create() {
   
+  // ====================== player =============================
+  this.player = this.physics.add.sprite(50, 300, "player");
+  this.player.setBounce(0.3);
+  this.player.setScale(0.25, 0.25)
+  
   // ====================== background =============================
   const backgroundImage = this.add.image(0, 0, "background").setOrigin(0, 0);
   backgroundImage.setScale(2, 0.8);
@@ -88,20 +96,15 @@ function create() {
   // ====================== tilesets =============================
   const groundTileset = map.addTilesetImage("spritesheet_ground", "ground");
   
-  // ====================== platforms =============================
-  const platforms = map.createStaticLayer("Platforms", groundTileset, 0, 0).setOrigin(0,0);
-  platforms.setCollisionByExclusion(-1, true);
-  platforms.setScale(0.25, 0.25);
-
-  // ====================== player =============================
-  this.player = this.physics.add.sprite(50, 300, "player");
-  this.player.setBounce(0.3);
-  this.player.setScale(0.25, 0.25)
-  
   // ====================== get the level rectangle =============================
   const level1Rec = map.findObject("levels", obj => obj.name === "level1");
   console.log(level1Rec.width)
   console.log(level1Rec.height)
+  
+  // ====================== platforms =============================
+  const platforms = map.createStaticLayer("Platforms", groundTileset, 0, 0).setOrigin(0,0);
+  platforms.setCollisionByExclusion(-1, true);
+  platforms.setScale(0.25, 0.25);
   
   // ====================== world physics =============================
   this.physics.world.bounds.width = level1Rec.width;
@@ -152,10 +155,7 @@ function create() {
   
   // --------- Spikes ----------
   // Create a sprite group for all spikes, set common properties to ensure that sprites in the group don't move via gravity or by player collisions
-  this.stuff = this.physics.add.group({
-    allowGravity: false,
-    immovable: true
-  });
+  this.stuff = this.physics.add.group({ allowGravity: false, immovable: true });
 
   // Let's get the spike objects, these are NOT sprites
   let spikeObjects = map.getObjectLayer("Spikes")["objects"];
@@ -163,13 +163,7 @@ function create() {
 
   // Now we create spikes in our sprite group for each object in our map
   spikeObjects.forEach(spikeObject => {
-    // Add new spikes to our sprite group, change the start y position to meet the platform
-    let spike = this.stuff
-      .create(spikeObject.x, spikeObject.y + 200 - spikeObject.height, "spike")
-      .setOrigin(0, 0)
-      
-    
-    // spike.body.setSize(spike.width, spike.height - 20).setOffset(0, 30);
+    let spike = this.stuff.create(spikeObject.x, spikeObject.y + 200 - spikeObject.height, "spike").setOrigin(0, 0)
   });
   
   // --------- Lava ----------
