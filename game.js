@@ -39,8 +39,8 @@ function preload() {
   this.load.image( "ground", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspritesheet_ground.png?v=1597798791918" );
   this.load.image( "tiles", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspritesheet_tiles.png?v=1597798793579" );
   
+  // ====================== images =============================
   this.load.image( "background", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fbackground.png?v=1597805558340" );
-  
   this.load.image( "spike", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspikes.png?v=1599014843516" );
   this.load.image( "lavaSquare", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Flava.png?v=1599615845811" );
   this.load.image( "lavaWave", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2FlavaTop_high.png?v=1599615843450" );
@@ -124,14 +124,18 @@ function create() {
   
   // ====================== MAP LAYERS =============================
   
+  //----- platforms
   const platforms = map.createStaticLayer("Platforms", groundTileset, 0, 0).setOrigin(0,0);
   platforms.setCollisionByExclusion(-1, true);
   platforms.setScale(0.25, 0.25);
   
   
   //----- object layers
-  this.objects = this.physics.add.group({allowGravity: false,immovable: true});
   
+  // groups
+  this.badStuff = this.physics.add.group({allowGravity: false,immovable: true});
+  
+  // objects from map
   var lavaObjs = map.createFromObjects('Lava', 148, { key: 'lavaSquare' });
   var spikesObjs = map.createFromObjects('Spikes', 250, { key: 'spike' });
   
@@ -139,13 +143,12 @@ function create() {
   console.log('spikesObjs',spikesObjs)
   
   lavaObjs.forEach(lavaObject => {
-    let lava = this.objects.create(lavaObject.x * 0.25, lavaObject.y  * 0.25, 'lavaSquare').setScale(0.25,0.25)
+    let lava = this.badStuff.create(lavaObject.x * 0.25, lavaObject.y  * 0.25, 'lavaSquare').setScale(0.25,0.25)
   });
   
   spikesObjs.forEach(spikeObject => {
-    let spike = this.objects.create(spikeObject.x * 0.25, spikeObject.y  * 0.25, 'spike').setScale(0.25,0.25)
+    let spike = this.badStuff.create(spikeObject.x * 0.25, spikeObject.y  * 0.25, 'spike').setScale(0.25,0.25)
   });
-  
   
   // other functions to get objects
   // let lavaWaves = map.getObjectLayer("Lava")["objects"];
@@ -156,15 +159,12 @@ function create() {
   this.physics.add.collider(this.player, platforms);
   
   //TODO: 
-  // collider with spikes, call playerHit function
-  // this.physics.add.collider(this.player, this.spikes, playerHit, null, this);
+  // collider with badStuff, call playerHit function
+  // this.physics.add.collider(this.player, this.badStuff, playerHit, null, this);
   
-  //TODO: 
-  // collider with spikes, call playerHit function
-  // this.physics.add.collider(this.player, this.spikes, playerHit, null, this);
-  
- 
 }
+
+
 
 function update() { 
   // Control the player with left or right keys
