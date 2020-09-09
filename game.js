@@ -83,10 +83,9 @@ function create() {
   backgroundImage.setScale(2, 0.8);
   
   // ====================== map =============================
-  const map = this.make.tilemap({ key: "map" });\
+  const map = this.make.tilemap({ key: "map" });
   
   // ====================== tilesets =============================
-  const groundTileset = map.addTilesetImage("spritesheet_ground", "ground");
   const groundTileset = map.addTilesetImage("spritesheet_ground", "ground");
   
   // ====================== platforms =============================
@@ -175,9 +174,11 @@ function create() {
   
   // --------- Lava ----------
   // find objects by object type
-  let lavaWaves = map.getObjectLayer("Lava")["objects"];
-  //let lavaWaves = map.findObject("Lava", obj => obj.type === "lavaWave");
-  let lavaSquares = map.findObject("Lava", obj => obj.type === "lavaSquare");
+  // let lavaWaves = map.getObjectLayer("Lava")["objects"];
+  let lavaWaves = map.findObject("Lava", obj => obj.type == "lavaWave");
+  let lavaSquares = map.findObject("Lava", obj => obj.type == "lavaSquare");
+  
+  
   
   console.log("lavaWaves:")
   console.log(lavaWaves)
@@ -185,15 +186,7 @@ function create() {
   console.log("lavaSquares:")
   console.log(lavaSquares)
   
-  spikeObjects.forEach(spikeObject => {
-    // Add new spikes to our sprite group, change the start y position to meet the platform
-    let spike = this.stuff
-      .create(spikeObject.x, spikeObject.y + 200 - spikeObject.height, "spike")
-      .setOrigin(0, 0)
-      
-    
-    // spike.body.setSize(spike.width, spike.height - 20).setOffset(0, 30);
-  });
+  
   
   
  
