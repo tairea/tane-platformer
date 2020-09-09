@@ -56,7 +56,7 @@ function preload() {
 function create() {
   
   // ====================== player =============================
-  this.player = this.physics.add.sprite(50, 300, "player");
+  this.player = this.physics.add.sprite(50, 100, "player");
   this.player.setBounce(0.3);
   this.player.setScale(0.25, 0.25)
   this.player.setDepth(100)
@@ -77,14 +77,19 @@ function create() {
   console.log(level1Rec.width)
   console.log(level1Rec.height)
   
-  // ====================== platforms =============================
-  const platforms = map.createStaticLayer("Platforms", groundTileset, 0, 0).setOrigin(0,0);
-  platforms.setCollisionByExclusion(-1, true);
-  platforms.setScale(0.25, 0.25);
+  // ====================== LAYERS =============================
+  // const platforms = map.createStaticLayer("Platforms", groundTileset, 0, 0).setOrigin(0,0);
+  // const lava = map.createStaticLayer("Lava", detailTiles, 0, 0).setOrigin(0,0);
   
-  const lava = map.createStaticLayer("Lava", detailTiles, 0, 0).setOrigin(0,0);
-  lava.setCollisionByExclusion(-1, true);
-  lava.setScale(0.25, 0.25);
+  const platforms = map.createStaticLayer("Platforms", groundTileset)
+  // const lavas = map.createStaticLayer("Lava", detailTiles)
+  
+  // platforms.setCollisionByExclusion(-1, true);
+  // platforms.setScale(0.25, 0.25);
+  
+  
+  // lava.setCollisionByExclusion(-1, true);
+  // lava.setScale(0.25, 0.25);
   
   // ====================== world physics =============================
   this.physics.world.bounds.width = level1Rec.width;
