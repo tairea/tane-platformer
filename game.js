@@ -95,7 +95,7 @@ function create() {
 
   // ====================== player =============================
   this.player = this.physics.add.sprite(50, 300, "player");
-  this.player.setBounce(0.001);
+  this.player.setBounce(1);
   this.player.setScale(0.25, 0.25)
   
   // ====================== get the level rectangle =============================
