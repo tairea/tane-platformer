@@ -1,3 +1,13 @@
+/*
+Map size:
+width: 100 tiles (128x128 each)
+height: 14
+
+w: 12800
+h: 
+
+*/
+
 const config = {
   type: Phaser.AUTO,
   parent: "game",
@@ -53,7 +63,7 @@ function preload() {
   // ====================== Tiled JSON map =============================
   this.load.tilemapTiledJSON(
     "map",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.json?v=1599013155306"
+    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.3.json?v=1599616010886"
   );
 }
 
@@ -65,6 +75,7 @@ function create() {
   
   // ====================== map =============================
   const map = this.make.tilemap({ key: "map" });
+  
   const tileset = map.addTilesetImage("spritesheet_ground", "ground");
   
   // ====================== platforms =============================
@@ -148,17 +159,10 @@ function create() {
       .setOrigin(0, 0)
       .setScale(0.25, 0.25);
     
-    spike.body.setSize(spike.width, spike.height - 20).setOffset(0, 30);
+    // spike.body.setSize(spike.width, spike.height - 20).setOffset(0, 30);
   });
   
-  let detailObjects = map.getObjectLayer("Detail")["objects"];
-  
-  detailObjects.forEach(detailObject => {
-    // Add new spikes to our sprite group, change the start y position to meet the platform
-    let detail = this.stuff
-      .create(detailObject.x, detailObject.y + 200 - detailObject.height, "detailTiles")
-      .setOrigin(0, 0)
-  });
+ 
 }
 
 function update() { 
