@@ -140,8 +140,9 @@ function create() {
   spikeObjects.forEach(spikeObject => {
     // Add new spikes to our sprite group, change the start y position to meet the platform
     const spike = this.spikes
-      .create(spikeObject.x, spikeObject.y, "spike")
-
+      .create(spikeObject.x, spikeObject.y + 200 - spikeObject.height, "spike")
+      .setOrigin(0, 0)
+      .setScale(0.25, 0.25);
     
     spike.body.setSize(spike.width, spike.height - 20).setOffset(0, 30);
   });
