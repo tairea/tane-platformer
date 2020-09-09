@@ -51,6 +51,15 @@ function preload() {
     "spike",
     "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspikes.png?v=1599014843516"
   );
+  this.load.image(
+    "lavaSquare",
+    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Flava.png?v=1599615845811"
+  );
+  this.load.image(
+    "lavaWave",
+    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2FlavaTop_high.png?v=1599615843450"
+  );
+  
   this.load.image("detailTiles", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspritesheet_tiles.png?v=1597798793579");
   
   // ====================== player (atlas) =============================
@@ -63,7 +72,7 @@ function preload() {
   // ====================== Tiled JSON map =============================
   this.load.tilemapTiledJSON(
     "map",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.3.json?v=1599616010886"
+    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.3.json?v=1599616815139"
   );
 }
 
@@ -74,12 +83,14 @@ function create() {
   backgroundImage.setScale(2, 0.8);
   
   // ====================== map =============================
-  const map = this.make.tilemap({ key: "map" });
+  const map = this.make.tilemap({ key: "map" });\
   
-  const tileset = map.addTilesetImage("spritesheet_ground", "ground");
+  // ====================== tilesets =============================
+  const groundTileset = map.addTilesetImage("spritesheet_ground", "ground");
+  const groundTileset = map.addTilesetImage("spritesheet_ground", "ground");
   
   // ====================== platforms =============================
-  const platforms = map.createStaticLayer("Platforms", tileset, 0, 0).setOrigin(0,0);
+  const platforms = map.createStaticLayer("Platforms", groundTileset, 0, 0).setOrigin(0,0);
   platforms.setCollisionByExclusion(-1, true);
   platforms.setScale(0.25, 0.25);
 
@@ -89,7 +100,7 @@ function create() {
   this.player.setScale(0.25, 0.25)
   
   // ====================== get the level rectangle =============================
-  const level1Rec = map.findObject("level", obj => obj.name === "level1");
+  const level1Rec = map.findObject("levels", obj => obj.name === "level1");
   console.log(level1Rec.width)
   console.log(level1Rec.height)
   
@@ -149,7 +160,7 @@ function create() {
 
   // Let's get the spike objects, these are NOT sprites
   let spikeObjects = map.getObjectLayer("Spikes")["objects"];
-  console.log(spikeObjects)
+
 
   // Now we create spikes in our sprite group for each object in our map
   spikeObjects.forEach(spikeObject => {
@@ -157,10 +168,33 @@ function create() {
     let spike = this.stuff
       .create(spikeObject.x, spikeObject.y + 200 - spikeObject.height, "spike")
       .setOrigin(0, 0)
-      .setScale(0.25, 0.25);
+      
     
     // spike.body.setSize(spike.width, spike.height - 20).setOffset(0, 30);
   });
+  
+  // --------- Lava ----------
+  // find objects by object type
+  let lavaWaves = map.getObjectLayer("Lava")["objects"];
+  //let lavaWaves = map.findObject("Lava", obj => obj.type === "lavaWave");
+  let lavaSquares = map.findObject("Lava", obj => obj.type === "lavaSquare");
+  
+  console.log("lavaWaves:")
+  console.log(lavaWaves)
+  
+  console.log("lavaSquares:")
+  console.log(lavaSquares)
+  
+  spikeObjects.forEach(spikeObject => {
+    // Add new spikes to our sprite group, change the start y position to meet the platform
+    let spike = this.stuff
+      .create(spikeObject.x, spikeObject.y + 200 - spikeObject.height, "spike")
+      .setOrigin(0, 0)
+      
+    
+    // spike.body.setSize(spike.width, spike.height - 20).setOffset(0, 30);
+  });
+  
   
  
 }
