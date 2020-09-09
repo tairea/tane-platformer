@@ -44,7 +44,7 @@ function preload() {
   // Load the export Tiled JSON
   this.load.tilemapTiledJSON(
     "map",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.3.json?v=1599604781001"
+    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.json?v=1599013155306"
   );
   this.load.image(
     "spike",
@@ -81,8 +81,15 @@ function create() {
   this.physics.world.bounds.height = level1Rec.height;
   this.player.setCollideWorldBounds(true);
   
-  //camera
+  // Set camera boundaries.
   this.cameras.main.setBounds(level1Rec.x, level1Rec.y, level1Rec.width, level1Rec.height, true);
+  // Set camera follow player
+  this.cameras.main.startFollow(this.player);
+  // Set camera fade in
+  this.cameras.main.fadeIn(2000, 0, 0, 0);
+  
+  //camera
+  
   this.cameras.main.setZoom(2);
   
   this.physics.add.collider(this.player, platforms);
@@ -135,18 +142,17 @@ function create() {
   });
 }
 
-function update() {
-  this.cameras.main.startFollow(this.player);
+function update() { 
   // Control the player with left or right keys
   if (this.cursors.left.isDown) {
     this.player.setVelocityX(-200);
     if (this.player.body.onFloor()) {
-      this.player.play("walk", true);
+      this.player.play('walk', true);
     }
   } else if (this.cursors.right.isDown) {
     this.player.setVelocityX(200);
     if (this.player.body.onFloor()) {
-      this.player.play("walk", true);
+      this.player.play('walk', true);
     }
   } else {
     // If no keys are pressed, the player keeps still
@@ -154,17 +160,33 @@ function update() {
     // Only show the idle animation if the player is footed
     // If this is not included, the player would look idle while jumping
     if (this.player.body.onFloor()) {
-      this.player.play("idle", true);
-    }
-
-    // Player can jump while walking any direction by pressing the space bar
-    // or the 'UP' arrow
-    if (
-      (this.cursors.space.isDown || this.cursors.up.isDown) &&
-      this.player.body.onFloor()
-    ) {
-      this.player.setVelocityY(-350);
-      this.player.play("jump", true);
+      this.player.play('idle', true);
     }
   }
+
+  // Player can jump while walking any direction by pressing the space bar
+  // or the 'UP' arrow
+  if ((this.cursors.space.isDown || this.cursors.up.isDown) && this.player.body.onFloor()) {
+    this.player.setVelocityY(-350);
+    this.player.play('jump', true);
+  }
+  
+  // flip player
+  if (this.player.body.velocity.x > 0) {
+    this.player.setFlipX(false);
+  } else if (this.player.body.velocity.x < 0) {
+    // otherwise, make them face the other side
+    this.player.setFlipX(true);
+  }
+  
+  this.spikes = this.physics.add.group({allowGravity: false,immovable: true});
+  
+  const spikeObjects = level1.getObjectLayer('spike')['objects'];
+  
+ spikeObjects.forEach(spikeObject => {
+    const spike = this.spikes.create(spikeObject.x, spikeObject.y - spikeObject.height, 'spike').setOrigin(0, 0);
+    //resize bounding box
+    spike.body.setSize(spike.width, spike.height - 20).setOffset(0, 30);
+  });
 }
+
