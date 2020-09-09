@@ -48,7 +48,7 @@ function preload() {
   );
   this.load.image(
     "spike",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspike.png?v=1598396909712"
+    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspikes.png?v=1599014843516"
   );
   this.load.image("Detail", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspritesheet_tiles.png?v=1597798793579");
 }
@@ -132,6 +132,8 @@ function create() {
 
   // Let's get the spike objects, these are NOT sprites
   const spikeObjects = map.getObjectLayer("Spikes")["objects"];
+  
+  console.log()
 
   // Now we create spikes in our sprite group for each object in our map
   spikeObjects.forEach(spikeObject => {
@@ -178,15 +180,6 @@ function update() {
     // otherwise, make them face the other side
     this.player.setFlipX(true);
   }
-  
-  this.spikes = this.physics.add.group({allowGravity: false,immovable: true});
-  
-  const spikeObjects = level1.getObjectLayer('spike')['objects'];
-  
- spikeObjects.forEach(spikeObject => {
-    const spike = this.spikes.create(spikeObject.x, spikeObject.y - spikeObject.height, 'spike').setOrigin(0, 0);
-    //resize bounding box
-    spike.body.setSize(spike.width, spike.height - 20).setOffset(0, 30);
-  });
+
 }
 
