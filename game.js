@@ -78,18 +78,12 @@ function create() {
   console.log(level1Rec.height)
   
   // ====================== LAYERS =============================
-  // const platforms = map.createStaticLayer("Platforms", groundTileset, 0, 0).setOrigin(0,0);
-  // const lava = map.createStaticLayer("Lava", detailTiles, 0, 0).setOrigin(0,0);
+  const platforms = map.createStaticLayer("Platforms", groundTileset, 0, 0).setOrigin(0,0);
+  platforms.setCollisionByExclusion(-1, true);
+  platforms.setScale(0.25, 0.25);
   
-  const platforms = map.createStaticLayer("Platforms", groundTileset)
-  // const lavas = map.createStaticLayer("Lava", detailTiles)
-  
-  // platforms.setCollisionByExclusion(-1, true);
-  // platforms.setScale(0.25, 0.25);
-  
-  
-  // lava.setCollisionByExclusion(-1, true);
-  // lava.setScale(0.25, 0.25);
+  var lavas = map.createFromObjects('Lava', 148, { key: 'lavaSquare' });
+
   
   // ====================== world physics =============================
   this.physics.world.bounds.width = level1Rec.width;
@@ -143,30 +137,26 @@ function create() {
   this.stuff = this.physics.add.group({ allowGravity: false, immovable: true });
 
   // Let's get the spike objects, these are NOT sprites
-  let spikeObjects = map.getObjectLayer("Spikes")["objects"];
+//   let spikeObjects = map.getObjectLayer("Spikes")["objects"];
+//   let lavaObjects = map.getObjectLayer("Lava")["objects"];
 
 
-  // Now we create spikes in our sprite group for each object in our map
-  spikeObjects.forEach(spikeObject => {
-    let spike = this.stuff.create(spikeObject.x, spikeObject.y + 200 - spikeObject.height, "spike").setOrigin(0, 0)
-  });
+//   // Now we create spikes in our sprite group for each object in our map
+//   spikeObjects.forEach(spikeObject => {
+//     let spike = this.stuff.create(spikeObject.x, spikeObject.y + 200 - spikeObject.height, "spike").setOrigin(0, 0)
+//   });
+  
+//   lavaObjects.forEach(lavaObject => {
+//     let lava = this.stuff.create(lavaObject.x, lavaObject.y + 200 - lavaObject.height, "lavaSquare").setOrigin(0, 0)
+//   });
   
   // --------- Lava ----------
   // find objects by object type
   // let lavaWaves = map.getObjectLayer("Lava")["objects"];
-  let lavaWaves = map.findObject("Lava", obj => obj.type == "lavaWave");
-  let lavaSquares = map.findObject("Lava", obj => obj.type == "lavaSquare");
-  
-  
-  
-  console.log("lavaWaves:")
-  console.log(lavaWaves)
-  
-  console.log("lavaSquares:")
-  console.log(lavaSquares)
-  
-  
-  
+  // let lavaWaves = map.findObject("Lava", obj => obj.type == "lavaWave");
+  // let lavaSquares = map.findObject("Lava", obj => obj.type == "lavaSquare");
+
+
   
  
 }
