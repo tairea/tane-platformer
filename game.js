@@ -54,50 +54,48 @@ function preload() {
 }
 
 function create() {
+  
+  // ====================== background =============================
   const backgroundImage = this.add.image(0, 0, "background").setOrigin(0, 0);
   backgroundImage.setScale(2, 0.8);
   
-  
+  // ====================== map =============================
   const map = this.make.tilemap({ key: "map" });
-
   const tileset = map.addTilesetImage("spritesheet_ground", "ground");
-
+  
+  // ====================== platforms =============================
   const platforms = map.createStaticLayer("Platforms", tileset, 0, 0).setOrigin(0,0);
   platforms.setCollisionByExclusion(-1, true);
   platforms.setScale(0.25, 0.25);
 
+  // ====================== player =============================
   this.player = this.physics.add.sprite(50, 300, "player");
   this.player.setBounce(0.001);
   this.player.setScale(0.25, 0.25)
   
-  // get the level rectangle
+  // ====================== get the level rectangle =============================
   const level1Rec = map.findObject("level", obj => obj.name === "level1");
-  
   console.log(level1Rec.width)
   console.log(level1Rec.height)
   
-  //world physics
+  // ====================== world physics =============================
   this.physics.world.bounds.width = level1Rec.width;
   this.physics.world.bounds.height = level1Rec.height;
   this.player.setCollideWorldBounds(true);
   
-  // Set camera boundaries.
+  // ====================== Camera ======================
   this.cameras.main.setBounds(level1Rec.x, level1Rec.y, level1Rec.width, level1Rec.height, true);
   // Set camera follow player
   this.cameras.main.startFollow(this.player);
   // Set camera fade in
   this.cameras.main.fadeIn(2000, 0, 0, 0);
-  
-  //camera
-  
   this.cameras.main.setZoom(2);
-  
+ 
+  // ====================== Colliders ======================
   this.physics.add.collider(this.player, platforms);
-  this.player.setScale(0.25, 0.25);
-  
-  
-  
 
+  
+  // ====================== Animations ======================
   this.anims.create({
     key: "walk",
     frames: this.anims.generateFrameNames("player", {
@@ -121,8 +119,11 @@ function create() {
     frameRate: 10
   });
 
+  // ====================== Controls ======================
   this.cursors = this.input.keyboard.createCursorKeys();
 
+  
+  // ====================== Adding map layers ======================
   // Create a sprite group for all spikes, set common properties to ensure that
   // sprites in the group don't move via gravity or by player collisions
   this.spikes = this.physics.add.group({
@@ -133,14 +134,16 @@ function create() {
   // Let's get the spike objects, these are NOT sprites
   const spikeObjects = map.getObjectLayer("Spikes")["objects"];
   
-  console.log()
+  console.log(spikeObjects)
 
   // Now we create spikes in our sprite group for each object in our map
   spikeObjects.forEach(spikeObject => {
     // Add new spikes to our sprite group, change the start y position to meet the platform
     const spike = this.spikes
-      .create(spikeObject.x, spikeObject.y + 200 - spikeObject.height, "spike")
-      .setOrigin(0, 0);
+      .create(spikeObject.x, spikeObject.y, "spike")
+
+    
+    spike.body.setSize(spike.width, spike.height - 20).setOffset(0, 30);
   });
 }
 
