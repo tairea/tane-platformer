@@ -36,21 +36,25 @@ function preload() {
     "background",
     "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fbackground.png?v=1597805558340"
   );
-  this.load.atlas(
-    "player",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player.png?v=1598396905743",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player_atlas.json?v=1598396922994"
-  );
-  // Load the export Tiled JSON
-  this.load.tilemapTiledJSON(
-    "map",
-    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.json?v=1599013155306"
-  );
+  
   this.load.image(
     "spike",
     "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspikes.png?v=1599014843516"
   );
-  this.load.image("Detail", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspritesheet_tiles.png?v=1597798793579");
+  this.load.image("detailTiles", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspritesheet_tiles.png?v=1597798793579");
+  
+  // ====================== player (atlas) =============================
+   this.load.atlas(
+    "player",
+    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player.png?v=1598396905743",
+    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player_atlas.json?v=1598396922994"
+  );
+  
+  // ====================== Tiled JSON map =============================
+  this.load.tilemapTiledJSON(
+    "map",
+    "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.json?v=1599013155306"
+  );
 }
 
 function create() {
@@ -124,27 +128,36 @@ function create() {
 
   
   // ====================== Adding map layers ======================
-  // Create a sprite group for all spikes, set common properties to ensure that
-  // sprites in the group don't move via gravity or by player collisions
-  this.spikes = this.physics.add.group({
+  
+  // --------- Spikes ----------
+  // Create a sprite group for all spikes, set common properties to ensure that sprites in the group don't move via gravity or by player collisions
+  this.stuff = this.physics.add.group({
     allowGravity: false,
     immovable: true
   });
 
   // Let's get the spike objects, these are NOT sprites
-  const spikeObjects = map.getObjectLayer("Spikes")["objects"];
-  
+  let spikeObjects = map.getObjectLayer("Spikes")["objects"];
   console.log(spikeObjects)
 
   // Now we create spikes in our sprite group for each object in our map
   spikeObjects.forEach(spikeObject => {
     // Add new spikes to our sprite group, change the start y position to meet the platform
-    const spike = this.spikes
+    let spike = this.stuff
       .create(spikeObject.x, spikeObject.y + 200 - spikeObject.height, "spike")
       .setOrigin(0, 0)
       .setScale(0.25, 0.25);
     
     spike.body.setSize(spike.width, spike.height - 20).setOffset(0, 30);
+  });
+  
+  let detailObjects = map.getObjectLayer("Detail")["objects"];
+  
+  detailObjects.forEach(detailObject => {
+    // Add new spikes to our sprite group, change the start y position to meet the platform
+    let detail = this.stuff
+      .create(detailObject.x, detailObject.y + 200 - detailObject.height, "detailTiles")
+      .setOrigin(0, 0)
   });
 }
 
