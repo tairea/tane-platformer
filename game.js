@@ -64,6 +64,7 @@ function create() {
   // ====================== background =============================
   const backgroundImage = this.add.image(0, 0, "background").setOrigin(0, 0);
   backgroundImage.setScale(2, 0.8);
+  backgroundImage.setScrollFactor(0.2)
   
   // ====================== map =============================
   const map = this.make.tilemap({ key: "map" });
@@ -78,37 +79,6 @@ function create() {
   console.log(level1Rec.width)
   console.log(level1Rec.height)
   
-  // ====================== LAYERS =============================
-  
-  
-  const platforms = map.createStaticLayer("Platforms", groundTileset, 0, 0).setOrigin(0,0);
-  platforms.setCollisionByExclusion(-1, true);
-  platforms.setScale(0.25, 0.25);
-  
-  
-  //----- object layers
-  this.lavas = this.physics.add.group({allowGravity: false,immovable: true});
-  this.spikes = this.physics.add.group({allowGravity: false,immovable: true});
-  
-  var lavaObjs = map.createFromObjects('Lava', 148, { key: 'lavaSquare' });
-  var spikesObjs = map.createFromObjects('Spikes', 250, { key: 'spike' });
-  
-  map.setCollisionByProperty({key:148});
-  
-  console.log('lavaObjs',lavaObjs)
-  console.log('spikesObjs',spikesObjs)
-  
-  lavaObjs.forEach(lavaObject => {
-    console.log('placing this lava at position: ',lavaObject.x,' ',lavaObject.y,' with a height of',lavaObject.height)
-    let lava = this.lavas.create(lavaObject.x, lavaObject.y - lavaObject.height, 'lavaSquare').setScale(0.25,0.25).setOrigin(0, 0);
-  });
-  
-  spikesObjs.forEach(spikeObject => {
-    let spike = this.spikes.create(spikeObject.x, spikeObject.y - spikeObject.height, 'spike').setOrigin(0, 0).setScale(0.25,0.25)
-  });
-  
-
-  
   // ====================== world physics =============================
   this.physics.world.bounds.width = level1Rec.width;
   this.physics.world.bounds.height = level1Rec.height;
@@ -121,10 +91,6 @@ function create() {
   // Set camera fade in
   this.cameras.main.fadeIn(2000, 0, 0, 0);
   this.cameras.main.setZoom(2);
- 
-  // ====================== Colliders ======================
-  this.physics.add.collider(this.player, platforms);
-
   
   // ====================== Animations ======================
   this.anims.create({
@@ -154,33 +120,48 @@ function create() {
   this.cursors = this.input.keyboard.createCursorKeys();
 
   
-  // ====================== Adding map layers ======================
   
-  // --------- Spikes ----------
-  // Create a sprite group for all spikes, set common properties to ensure that sprites in the group don't move via gravity or by player collisions
-  this.stuff = this.physics.add.group({ allowGravity: false, immovable: true });
-
-  // Let's get the spike objects, these are NOT sprites
-//   let spikeObjects = map.getObjectLayer("Spikes")["objects"];
-//   let lavaObjects = map.getObjectLayer("Lava")["objects"];
-
-
-//   // Now we create spikes in our sprite group for each object in our map
-//   spikeObjects.forEach(spikeObject => {
-//     let spike = this.stuff.create(spikeObject.x, spikeObject.y + 200 - spikeObject.height, "spike").setOrigin(0, 0)
-//   });
   
-//   lavaObjects.forEach(lavaObject => {
-//     let lava = this.stuff.create(lavaObject.x, lavaObject.y + 200 - lavaObject.height, "lavaSquare").setOrigin(0, 0)
-//   });
+  // ====================== MAP LAYERS =============================
   
-  // --------- Lava ----------
-  // find objects by object type
+  const platforms = map.createStaticLayer("Platforms", groundTileset, 0, 0).setOrigin(0,0);
+  platforms.setCollisionByExclusion(-1, true);
+  platforms.setScale(0.25, 0.25);
+  
+  
+  //----- object layers
+  this.objects = this.physics.add.group({allowGravity: false,immovable: true});
+  
+  var lavaObjs = map.createFromObjects('Lava', 148, { key: 'lavaSquare' });
+  var spikesObjs = map.createFromObjects('Spikes', 250, { key: 'spike' });
+  
+  console.log('lavaObjs',lavaObjs)
+  console.log('spikesObjs',spikesObjs)
+  
+  lavaObjs.forEach(lavaObject => {
+    let lava = this.objects.create(lavaObject.x * 0.25, lavaObject.y  * 0.25, 'lavaSquare').setScale(0.25,0.25)
+  });
+  
+  spikesObjs.forEach(spikeObject => {
+    let spike = this.objects.create(spikeObject.x * 0.25, spikeObject.y  * 0.25, 'spike').setScale(0.25,0.25)
+  });
+  
+  
+  // other functions to get objects
   // let lavaWaves = map.getObjectLayer("Lava")["objects"];
   // let lavaWaves = map.findObject("Lava", obj => obj.type == "lavaWave");
-  // let lavaSquares = map.findObject("Lava", obj => obj.type == "lavaSquare");
-
-
+  
+  
+  // ====================== Colliders ======================
+  this.physics.add.collider(this.player, platforms);
+  
+  //TODO: 
+  // collider with spikes, call playerHit function
+  // this.physics.add.collider(this.player, this.spikes, playerHit, null, this);
+  
+  //TODO: 
+  // collider with spikes, call playerHit function
+  // this.physics.add.collider(this.player, this.spikes, playerHit, null, this);
   
  
 }
@@ -222,7 +203,7 @@ function update() {
     this.player.setFlipX(true);
   }
   
-  console.log(this.player.x, this.player.y)
+  // console.log(this.player.x, this.player.y)
   
 }
 
