@@ -25,7 +25,7 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { y: 500 },
+      gravity: { y: 300 },
       debug: true
     }
   }
@@ -68,6 +68,7 @@ function create() {
   // ====================== map =============================
   const map = this.make.tilemap({ key: "map" });
   
+  
   // ====================== tilesets =============================
   const groundTileset = map.addTilesetImage("spritesheet_ground", "ground");
   const detailTiles = map.addTilesetImage("spritesheet_tiles", "tiles");
@@ -78,11 +79,29 @@ function create() {
   console.log(level1Rec.height)
   
   // ====================== LAYERS =============================
+  var lavas = map.createFromObjects('Lava', 148, { key: 'lavaSquare' });
+  var spikes = map.createFromObjects('Spikes', 250, { key: 'spike' });
+  
+  console.log(lavas)
+  
+  lavas.forEach(lavaObject => {
+    // console.log(lavaObject)
+    lavaObject.setScale(0.5,0.5).setOrigin(0,0);
+    
+  });
+  spikes.forEach(lavaObject => {
+    // console.log(lavaObject)
+    lavaObject.setScale(0.5,0.5).setOrigin(0,0);
+    
+  });
+  
   const platforms = map.createStaticLayer("Platforms", groundTileset, 0, 0).setOrigin(0,0);
   platforms.setCollisionByExclusion(-1, true);
   platforms.setScale(0.25, 0.25);
   
-  var lavas = map.createFromObjects('Lava', 148, { key: 'lavaSquare' });
+  
+  
+  
 
   
   // ====================== world physics =============================
