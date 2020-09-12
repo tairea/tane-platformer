@@ -57,7 +57,7 @@ function create() {
   
   // ====================== player =============================
   this.player = this.physics.add.sprite(50, 100, "player");
-  this.player.setBounce(0.3);
+  this.player.setBounce(0.`1`);
   this.player.setScale(0.25, 0.25)
   this.player.setDepth(100)
   
