@@ -59,7 +59,7 @@ function create() {
   // ====================== player =============================
   this.player = this.physics.add.sprite(50, 100, "player");
   this.player.setBounce(0.01);
-  this.player.setScale(1, 1)
+  this.player.setScale(0.25, 0.25)
   this.player.setDepth(100)
   
   // ====================== background =============================
@@ -128,7 +128,7 @@ function create() {
   //----- platforms
   const platforms = map.createStaticLayer("Platforms", groundTileset, 0, 0).setOrigin(0,0);
   platforms.setCollisionByExclusion(-1, true);
-  platforms.setScale(1, 1);
+  platforms.setScale(0.25, 0.25);
   
   
   //----- object layers
@@ -144,11 +144,11 @@ function create() {
   console.log('spikesObjs',spikesObjs)
   
   lavaObjs.forEach(lavaObject => {
-    let lava = this.badStuff.create(lavaObject.x * 1, lavaObject.y  * 1, 'lavaSquare').setScale(1,1)
+    let lava = this.badStuff.create(lavaObject.x * 0.25, lavaObject.y  * 0.25, 'lavaSquare').setScale(0.25, 0.25)
   });
   
   spikesObjs.forEach(spikeObject => {
-    let spike = this.badStuff.create(spikeObject.x * 1, spikeObject.y  * 1, 'spike').setScale(1,1)
+    let spike = this.badStuff.create(spikeObject.x * 0.25, spikeObject.y  * 0.25, 'spike').setScale(0.25,0.25)
   });
   
   // other functions to get objects
@@ -162,7 +162,7 @@ function create() {
   //TODO: 
   // collider with badStuff, call playerHit function
   // this.physics.add.collider(this.player, this.badStuff, playerHit, null, this);
-  
+  this.physics.add.collider(this.player, this.spikes, playerHit, null, this);
 }
 
 
@@ -224,3 +224,6 @@ function playerHit(player, spike) {
     repeat: 5,
   });
 }
+
+
+
