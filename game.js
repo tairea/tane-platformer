@@ -26,7 +26,7 @@ const config = {
     default: "arcade",
     arcade: {
       gravity: { y: 300 },
-      debug: true
+      debug: false
     }
   }
 };
@@ -168,12 +168,12 @@ function create() {
 
 function update() { 
   // Control the player with left or right keys
-  if (this.cursors.left.isDown || this.cursors.a.isDown) {
+  if (this.cursors.left.isDown) {
     this.player.setVelocityX(-200);
     if (this.player.body.onFloor()) {
       this.player.play('walk', true);
     }
-  } else if (this.cursors.right.isDown || this.cursors.d.isDown) {
+  } else if (this.cursors.right.isDown) {
     this.player.setVelocityX(200);
     if (this.player.body.onFloor()) {
       this.player.play('walk', true);
@@ -190,7 +190,7 @@ function update() {
 
   // Player can jump while walking any direction by pressing the space bar
   // or the 'UP' arrow
-  if ((this.cursors.space.isDown || this.cursors.up.isDown) && this.player.body.onFloor()) {
+  if ((this.cursors.space.isDown || this.cursors.up.isDown ) && this.player.body.onFloor()) {
     this.player.setVelocityY(-350);
     this.player.play('jump', true);
   }
