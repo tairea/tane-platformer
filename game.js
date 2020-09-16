@@ -25,7 +25,7 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { y: 10 },
+      gravity: { y: 400 },
       debug: true
     }
   }
@@ -59,7 +59,7 @@ function create() {
   // ====================== player =============================
   this.player = this.physics.add.sprite(50, 100, "player");
   this.player.setBounce(0.01);
-  this.player.setScale(0.10, 0.10)
+  this.player.setScale(1, 1)
   this.player.setDepth(100)
   
   // ====================== background =============================
@@ -144,11 +144,11 @@ function create() {
   console.log('spikesObjs',spikesObjs)
   
   lavaObjs.forEach(lavaObject => {
-    let lava = this.badStuff.create(lavaObject.x * 0.25, lavaObject.y  * 0.25, 'lavaSquare').setScale(1,1)
+    let lava = this.badStuff.create(lavaObject.x * 1, lavaObject.y  * 1, 'lavaSquare').setScale(1,1)
   });
   
   spikesObjs.forEach(spikeObject => {
-    let spike = this.badStuff.create(spikeObject.x * 0.25, spikeObject.y  * 0.25, 'spike').setScale(1,1)
+    let spike = this.badStuff.create(spikeObject.x * 1, spikeObject.y  * 1, 'spike').setScale(1,1)
   });
   
   // other functions to get objects
@@ -206,4 +206,21 @@ function update() {
   
   console.log(this.player.x, this.player.y)
   
+}
+
+
+// ================ death function ========================
+function playerHit(player, spike) {
+  player.setVelocity(0, 0);
+  player.setX(50);
+  player.setY(400);
+  player.play('idle', true);
+  player.setAlpha(0);
+  let tw = this.tweens.add({
+    targets: player,
+    alpha: 1,
+    duration: 100,
+    ease: 'Linear',
+    repeat: 5,
+  });
 }
