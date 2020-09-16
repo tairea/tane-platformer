@@ -26,7 +26,7 @@ const config = {
     default: "arcade",
     arcade: {
       gravity: { y: 300 },
-      debug: false  
+      debug: true
     }
   }
 };
@@ -49,7 +49,7 @@ function preload() {
    this.load.atlas( "player", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player.png?v=1598396905743", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player_atlas.json?v=1598396922994" );
   
   // ====================== Tiled JSON map ===========================
-   this.load.tilemapTiledJSON("map", "")
+this.load.tilemapTiledJSON("map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.4.json?v=1600219625072")
  // this.load.tilemapTiledJSON( "map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d6 3;3:5343%2Ftest-map-2.3.json?v=1599616815139" );
   
 }
@@ -58,8 +58,8 @@ function create() {
   
   // ====================== player =============================
   this.player = this.physics.add.sprite(50, 100, "player");
-  this.player.setBounce(0.1);
-  this.player.setScale(0.25, 0.25)
+  this.player.setBounce(0.01);
+  this.player.setScale(1, 1)
   this.player.setDepth(100)
   
   // ====================== background =============================
@@ -207,5 +207,3 @@ function update() {
   console.log(this.player.x, this.player.y)
   
 }
-
-https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.4.json?v=1600219625072
