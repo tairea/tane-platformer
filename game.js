@@ -25,7 +25,7 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { y: 300 },
+      gravity: { y: 10 },
       debug: true
     }
   }
@@ -59,7 +59,7 @@ function create() {
   // ====================== player =============================
   this.player = this.physics.add.sprite(50, 100, "player");
   this.player.setBounce(0.01);
-  this.player.setScale(1, 1)
+  this.player.setScale(0.10, 0.10)
   this.player.setDepth(100)
   
   // ====================== background =============================
@@ -128,7 +128,7 @@ function create() {
   //----- platforms
   const platforms = map.createStaticLayer("Platforms", groundTileset, 0, 0).setOrigin(0,0);
   platforms.setCollisionByExclusion(-1, true);
-  platforms.setScale(0.25, 0.25);
+  platforms.setScale(1, 1);
   
   
   //----- object layers
@@ -144,11 +144,11 @@ function create() {
   console.log('spikesObjs',spikesObjs)
   
   lavaObjs.forEach(lavaObject => {
-    let lava = this.badStuff.create(lavaObject.x * 0.25, lavaObject.y  * 0.25, 'lavaSquare').setScale(0.25,0.25)
+    let lava = this.badStuff.create(lavaObject.x * 0.25, lavaObject.y  * 0.25, 'lavaSquare').setScale(1,1)
   });
   
   spikesObjs.forEach(spikeObject => {
-    let spike = this.badStuff.create(spikeObject.x * 0.25, spikeObject.y  * 0.25, 'spike').setScale(0.25,0.25)
+    let spike = this.badStuff.create(spikeObject.x * 0.25, spikeObject.y  * 0.25, 'spike').setScale(1,1)
   });
   
   // other functions to get objects
