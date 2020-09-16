@@ -48,9 +48,9 @@ function preload() {
   // ====================== player (atlas) =============================
    this.load.atlas( "player", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player.png?v=1598396905743", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player_atlas.json?v=1598396922994" );
   
-  // ====================== Tiled JSON map =============================
-  this.load.tilemapTiledJSON("map", "")
- // this.load.tilemapTiledJSON( "map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d633:5343%2Ftest-map-2.3.json?v=1599616815139" );
+  // ====================== Tiled JSON map ===========================
+   this.load.tilemapTiledJSON("map", "")
+ // this.load.tilemapTiledJSON( "map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d6 3;3:5343%2Ftest-map-2.3.json?v=1599616815139" );
   
 }
 
