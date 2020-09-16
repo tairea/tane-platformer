@@ -168,12 +168,12 @@ function create() {
 
 function update() { 
   // Control the player with left or right keys
-  if (this.cursors.left.isDown) {
+  if (this.cursors.left.isDown || this.cursors.a.isDown) {
     this.player.setVelocityX(-200);
     if (this.player.body.onFloor()) {
       this.player.play('walk', true);
     }
-  } else if (this.cursors.right.isDown) {
+  } else if (this.cursors.right.isDown || this.cursors.d.isDown) {
     this.player.setVelocityX(200);
     if (this.player.body.onFloor()) {
       this.player.play('walk', true);
