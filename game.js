@@ -140,7 +140,7 @@ function create() {
   // objects from map
   var lavaObjs = map.createFromObjects('Lava', 148, { key: 'lavaSquare' });
   var spikesObjs = map.createFromObjects('Spikes', 250, { key: 'spike' });
-  var bridgeObjs = map.createFromObjects('Bridge', 250, { key: 'bridge' });
+  var bridgeObjs = map.getObjectLayer("Bridge")["objects"];
   
   // console.log('lavaObjs',lavaObjs)
   // console.log('spikesObjs',spikesObjs)
@@ -157,14 +157,14 @@ function create() {
   });
   
   bridgeObjs.forEach(bridgeObject => {
-    let bridge = this.badStuff.create(bridgeObject.x * 0.25, bridgeObject.y  * 0.25, 'bridge').setScale(0.25,0.25)   
+    let bridge = this.badStuff.create(bridgeObject.x * 0.25, (bridgeObject.y  * 0.25) - (bridgeObject.height * 0.25), 'bridge').setOrigin(0, 0).setScale(0.25,0.25)  
     console.log("bridge")
     this.physics.add.collider(this.player, bridge);
   });
   
   // other functions to get objects
-  let Bridge = map.getObjectLayer("Bridge")["objects"];
-  map.findObject("Bridge", obj => obj.type == "bridge");
+  // let Bridge = map.getObjectLayer("Bridge")["objects"];
+  // map.findObject("Bridge", obj => obj.name == "bridge");
   
   
   // ====================== Colliders ======================
