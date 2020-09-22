@@ -51,7 +51,7 @@ function preload() {
   
   // ====================== Tiled JSON map ===========================
   //this.load.tilemapTiledJSON("map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.4.json?v=1600219625072")
-  this.load.tilemapTiledJSON( "map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.5.json?v=1600813401504" );
+  this.load.tilemapTiledJSON( "map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.5.json?v=1600815304381" );
   
 }
 
@@ -140,10 +140,11 @@ function create() {
   // objects from map
   var lavaObjs = map.createFromObjects('Lava', 148, { key: 'lavaSquare' });
   var spikesObjs = map.createFromObjects('Spikes', 250, { key: 'spike' });
+  var bridgeObjs = map.createFromObjects('Bridge', 250, { key: 'bridge' });
   
-  console.log('lavaObjs',lavaObjs)
-  console.log('spikesObjs',spikesObjs)
-  console.log("Bridge")
+  // console.log('lavaObjs',lavaObjs)
+  // console.log('spikesObjs',spikesObjs)
+  // console.log("Bridge")
   
   lavaObjs.forEach(lavaObject => {
     let lava = this.badStuff.create(lavaObject.x * 0.25, lavaObject.y  * 0.25, 'lavaSquare').setScale(0.25, 0.25)
@@ -155,10 +156,10 @@ function create() {
       this.physics.add.collider(this.player, spike, playerHit, null, this);
   });
   
-  spikesObjs.forEach(spikeObject => {
-    let spike = this.badStuff.create(spikeObject.x * 0.25, spikeObject.y  * 0.25, 'spike').setScale(0.25,0.25)
-    spike.body.setSize(spike.width, spike.height - 50).setOffset(0, 50);
-      this.physics.add.collider(this.player, spike, playerHit, null, this);
+  bridgeObjs.forEach(bridgeObject => {
+    let bridge = this.badStuff.create(bridgeObject.x * 0.25, bridgeObject.y  * 0.25, 'bridge').setScale(0.25,0.25)   
+    console.log("bridge")
+    this.physics.add.collider(this.player, bridge);
   });
   
   // other functions to get objects
@@ -215,6 +216,7 @@ function update() {
   }
   
   //console.log(this.player.x, this.player.y)
+  
   
 }
 
