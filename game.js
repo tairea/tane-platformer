@@ -149,6 +149,7 @@ function create() {
   
   spikesObjs.forEach(spikeObject => {
     let spike = this.badStuff.create(spikeObject.x * 0.25, spikeObject.y  * 0.25, 'spike').setScale(0.25,0.25)
+      this.physics.add.collider(this.player, spike, playerHit, null, this);
   });
   
   // other functions to get objects
@@ -162,7 +163,7 @@ function create() {
   //TODO: 
   // collider with badStuff, call playerHit function
   // this.physics.add.collider(this.player, this.badStuff, playerHit, null, this);
-  this.physics.add.collider(this.player, this.spikes, playerHit, null, this);
+
 }
 
 
@@ -204,16 +205,17 @@ function update() {
     this.player.setFlipX(true);
   }
   
-  console.log(this.player.x, this.player.y)
+  //console.log(this.player.x, this.player.y)
   
 }
 
 
 // ================ death function ========================
 function playerHit(player, spike) {
+  console.log("player was hit")
   player.setVelocity(0, 0);
   player.setX(50);
-  player.setY(400);
+  player.setY(300);
   player.play('idle', true);
   player.setAlpha(0);
   let tw = this.tweens.add({
