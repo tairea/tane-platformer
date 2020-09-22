@@ -44,6 +44,7 @@ function preload() {
   this.load.image( "spike", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspikes.png?v=1599014843516" );
   this.load.image( "lavaSquare", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Flava.png?v=1599615845811" );
   this.load.image( "lavaWave", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2FlavaTop_high.png?v=1599615843450" );
+  this.load.image( "bridge", "");
   
   // ====================== player (atlas) =============================
    this.load.atlas( "player", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player.png?v=1598396905743", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player_atlas.json?v=1598396922994" );
@@ -149,6 +150,7 @@ function create() {
   
   spikesObjs.forEach(spikeObject => {
     let spike = this.badStuff.create(spikeObject.x * 0.25, spikeObject.y  * 0.25, 'spike').setScale(0.25,0.25)
+    spike.body.setSize(spike.width, spike.height - 50).setOffset(0, 50);
       this.physics.add.collider(this.player, spike, playerHit, null, this);
   });
   
