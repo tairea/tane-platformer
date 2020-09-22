@@ -143,6 +143,7 @@ function create() {
   
   console.log('lavaObjs',lavaObjs)
   console.log('spikesObjs',spikesObjs)
+  console.log("Bridge")
   
   lavaObjs.forEach(lavaObject => {
     let lava = this.badStuff.create(lavaObject.x * 0.25, lavaObject.y  * 0.25, 'lavaSquare').setScale(0.25, 0.25)
@@ -154,9 +155,15 @@ function create() {
       this.physics.add.collider(this.player, spike, playerHit, null, this);
   });
   
+  spikesObjs.forEach(spikeObject => {
+    let spike = this.badStuff.create(spikeObject.x * 0.25, spikeObject.y  * 0.25, 'spike').setScale(0.25,0.25)
+    spike.body.setSize(spike.width, spike.height - 50).setOffset(0, 50);
+      this.physics.add.collider(this.player, spike, playerHit, null, this);
+  });
+  
   // other functions to get objects
-  // let lavaWaves = map.getObjectLayer("Lava")["objects"];
-  // let lavaWaves = map.findObject("Lava", obj => obj.type == "lavaWave");
+  let Bridge = map.getObjectLayer("Bridge")["objects"];
+  map.findObject("Bridge", obj => obj.type == "bridge");
   
   
   // ====================== Colliders ======================
