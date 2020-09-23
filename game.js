@@ -134,18 +134,28 @@ function create() {
   platforms.setCollisionByExclusion(-1, true);
   platforms.setScale(0.25, 0.25);
   
-  // detail
-   var detailObjs = map.getObjectLayer("Detail")["objects"];
-  detailObjs.forEach(detailObject => {
-    //let lava = this.badStuff.create(lavaObject.x * 0.25, lavaObject.y  * 0.25, 'lavaSquare').setScale(0.25, 0.25)
-    console.log(detailObject)
-  });
-  
   
   //----- object layers
   
   // groups
   this.badStuff = this.physics.add.group({allowGravity: false,immovable: true});
+  
+  // detail
+   var detailObjs = map.getObjectLayer("Detail")["objects"];
+  detailObjs.forEach(detailObject => {
+    switch(detailObject.gid) {
+      case 228:
+        let detail = this.badStuff.create(detailObject.x * 0.25, detailObject.y  * 0.25, 'chain').setScale(0.25, 0.25)
+        break;
+      case 131:
+        let detail = this.badStuff.create(detailObject.x * 0.25, detailObject.y  * 0.25, 'cloud').setScale(0.25, 0.25)
+        break;
+      default:
+        
+    }
+    //let detail = this.badStuff.create(lavaObject.x * 0.25, lavaObject.y  * 0.25, 'lavaSquare').setScale(0.25, 0.25)
+    console.log(detailObject.gid)
+  });
   
   // objects from map
   var lavaObjs = map.createFromObjects('Lava', 148, { key: 'lavaSquare' });
