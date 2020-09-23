@@ -135,7 +135,7 @@ function create() {
    var detailObjs = map.getObjectLayer("Detail")["objects"];
   detailObjs.forEach(detailObject => {
     //let lava = this.badStuff.create(lavaObject.x * 0.25, lavaObject.y  * 0.25, 'lavaSquare').setScale(0.25, 0.25)
-    console.log("detail")
+    console.log(detailObject)
   });
   
   
