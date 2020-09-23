@@ -131,7 +131,12 @@ function create() {
   platforms.setCollisionByExclusion(-1, true);
   platforms.setScale(0.25, 0.25);
   
-  const detail = map.createStaticLayer("Detail", detailTiles, 0, 0)
+  // detail
+   var detailObjs = map.getObjectLayer("Detail")["objects"];
+  detailObjs.forEach(detailObject => {
+    //let lava = this.badStuff.create(lavaObject.x * 0.25, lavaObject.y  * 0.25, 'lavaSquare').setScale(0.25, 0.25)
+    console.log("detail")
+  });
   
   
   //----- object layers
