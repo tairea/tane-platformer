@@ -153,10 +153,10 @@ function create() {
          detail = this.badStuff.create(detailObject.x * 0.25, detailObject.y  * 0.25, 'cloud').setScale(0.25, 0.25)
         break;
       case 139:
-        detail = this.badStuff.create(detailObject.x * 0.25, detailObject.y  * 0.25, 'rock').setScale(0.25, 0.25)
+        detail = this.badStuff.create(detailObject.x * 0.25, (detailObject.y  * 0.25) - (detailObject.height *0.25), 'rock').setOrigin(0,0).setScale(0.25, 0.25)
         break;
       case 228:
-        detail = this.badStuff.create(detailObject.x * 0.25, detailObject.y  * 0.25, 'rock').setScale(0.25, 0.25)
+        detail = this.badStuff.create(detailObject.x * 0.25, detailObject.y  * 0.25, 'rock').setOrigin(0,0).setScale(0.25, 0.25)
         break;
       default:
         
