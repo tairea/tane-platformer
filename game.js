@@ -155,6 +155,9 @@ function create() {
       case 139:
         detail = this.badStuff.create(detailObject.x * 0.25, detailObject.y  * 0.25, 'rock').setScale(0.25, 0.25)
         break;
+      case 228:
+        detail = this.badStuff.create(detailObject.x * 0.25, detailObject.y  * 0.25, 'rock').setScale(0.25, 0.25)
+        break;
       default:
         
     }
@@ -185,6 +188,8 @@ function create() {
     let bridge = this.badStuff.create(bridgeObject.x * 0.25, (bridgeObject.y  * 0.25) - (bridgeObject.height * 0.25), 'bridge').setOrigin(0, 0).setScale(0.25,0.25)  
     console.log("bridge")
     this.physics.add.collider(this.player, bridge);
+    // this.physics.world.enable(bridge, 1);
+    bridge.setCollideWorldBounds()
   });
   
   // other functions to get objects
@@ -227,7 +232,7 @@ function update() {
 
   // Player can jump while walking any direction by pressing the space bar
   // or the 'UP' arrow
-  if ((this.cursors.space.isDown || this.cursors.up.isDown ) && this.player.body.onFloor()) {
+  if ((this.cursors.space.isDown || this.cursors.up.isDown ) && this.player.body.onFloor() ) {
     this.player.setVelocityY(-350);
     this.player.play('jump', true);
   }
