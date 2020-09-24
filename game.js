@@ -47,7 +47,8 @@ function preload() {
   this.load.image( "bridge", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2FbridgeA.png?v=1600812709430");
   this.load.image( "chain", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fchain.png?v=1599615831446");
   this.load.image( "cloud", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fsnow.png?v=1599615818886");
-  
+  this.load.image( "torch", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftorch1.png?v=1599615823447");
+  this.load.image( "rock", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Frock.png?v=1599014842634");
 
   
   // ====================== player (atlas) =============================
@@ -150,6 +151,9 @@ function create() {
         break;
       case 131:
          detail = this.badStuff.create(detailObject.x * 0.25, detailObject.y  * 0.25, 'cloud').setScale(0.25, 0.25)
+        break;
+      case 139:
+        detail = this.badStuff.create(detailObject.x * 0.25, detailObject.y  * 0.25, 'rock').setScale(0.25, 0.25)
         break;
       default:
         
