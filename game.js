@@ -44,7 +44,7 @@ function preload() {
   this.load.image( "spike", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fspikes.png?v=1599014843516" );
   this.load.image( "lavaSquare", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Flava.png?v=1599615845811" );
   this.load.image( "lavaWave", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2FlavaTop_high.png?v=1599615843450" );
-  //this.load.image( "bridge", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2FbridgeA.png?v=1600812709430");
+  this.load.image( "bridge", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2FbridgeA.png?v=1600812709430");
   //this.load.image( "chain", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fchain.png?v=1599615831446");
   //this.load.image( "cloud", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fsnow.png?v=1599615818886");
   //this.load.image( "torch", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftorch1.png?v=1599615823447");
@@ -187,7 +187,7 @@ function create() {
   var lavaObjs = map.createFromObjects('Lava', 148, { key: 'lavaSquare' });
   var lavaWaveObjs = map.createFromObjects('Lava', 140, { key: 'lavaWave' });
   var spikesObjs = map.createFromObjects('Spikes', 250, { key: 'spike' });
-  var bridgeObjs = map.getObjectLayer("Bridge")["objects"];
+  var bridgeObjs = map.createFromObjects('Bridge', 133, { key: 'spike' });
   
   // console.log('lavaObjs',lavaObjs)
   // console.log('spikesObjs',spikesObjs)
