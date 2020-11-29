@@ -57,7 +57,7 @@ function preload() {
   // ====================== Tiled JSON map ===========================
   //this.load.tilemapTiledJSON("map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.4.json?v=1600219625072")
   // this.load.tilemapTiledJSON( "map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.5.json?v=1600815304381" );
-  this.load.tilemapTiledJSON( "map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fcage-map.json?v=1606610091261" );
+  this.load.tilemapTiledJSON( "map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fcage-map.json?v=1606610896966" );
   
 }
 
@@ -80,7 +80,7 @@ function create() {
   
   // ====================== tilesets =============================
   const groundTileset = map.addTilesetImage("spritesheet_ground", "ground");
-  const detailTiles = map.addTilesetImage("spritesheet_tiles", "tiles");
+  // const detailTiles = map.addTilesetImage("spritesheet_tiles", "tiles");
   
   // ====================== get the level rectangle =============================
   const level1Rec = map.findObject("levels", obj => obj.name === "level1");
