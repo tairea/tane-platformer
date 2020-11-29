@@ -56,7 +56,8 @@ function preload() {
   
   // ====================== Tiled JSON map ===========================
   //this.load.tilemapTiledJSON("map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.4.json?v=1600219625072")
-  this.load.tilemapTiledJSON( "map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.5.json?v=1600815304381" );
+  // this.load.tilemapTiledJSON( "map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.5.json?v=1600815304381" );
+  this.load.tilemapTiledJSON( "map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fcage-map.json?v=1606610091261" );
   
 }
 
@@ -143,31 +144,31 @@ function create() {
   this.badStuff = this.physics.add.group({allowGravity: false,immovable: true});
   
   // detail
-   var detailObjs = map.getObjectLayer("Detail")["objects"];
-  detailObjs.forEach(detailObject => {
-    switch(detailObject.gid) {
-      case 228:
-         detail = this.badStuff.create(detailObject.x * 0.25, detailObject.y  * 0.25, 'chain').setScale(0.25, 0.25)
-        break;
-      case 131:
-         detail = this.badStuff.create(detailObject.x * 0.25, detailObject.y  * 0.25, 'cloud').setScale(0.25, 0.25)
-        break;
-      case 139:
-        detail = this.badStuff.create(detailObject.x * 0.25, (detailObject.y  * 0.25) - (detailObject.height *0.25), 'rock').setOrigin(0,0).setScale(0.25, 0.25)
-        break;
-      case 228:
-        detail = this.badStuff.create(detailObject.x * 0.25, detailObject.y  * 0.25, 'rock').setOrigin(0,0).setScale(0.25, 0.25)
-        break;
-      default:
+//    var detailObjs = map.getObjectLayer("Detail")["objects"];
+//   detailObjs.forEach(detailObject => {
+//     switch(detailObject.gid) {
+//       case 228:
+//          detail = this.badStuff.create(detailObject.x * 0.25, detailObject.y  * 0.25, 'chain').setScale(0.25, 0.25)
+//         break;
+//       case 131:
+//          detail = this.badStuff.create(detailObject.x * 0.25, detailObject.y  * 0.25, 'cloud').setScale(0.25, 0.25)
+//         break;
+//       case 139:
+//         detail = this.badStuff.create(detailObject.x * 0.25, (detailObject.y  * 0.25) - (detailObject.height *0.25), 'rock').setOrigin(0,0).setScale(0.25, 0.25)
+//         break;
+//       case 228:
+//         detail = this.badStuff.create(detailObject.x * 0.25, detailObject.y  * 0.25, 'rock').setOrigin(0,0).setScale(0.25, 0.25)
+//         break;
+//       default:
         
-    }
+//     }
     //let detail = this.badStuff.create(lavaObject.x * 0.25, lavaObject.y  * 0.25, 'lavaSquare').setScale(0.25, 0.25)
-    console.log(detailObject.gid)
-  });
+  //   console.log(detailObject.gid)
+  // });
   
   // objects from map
   var lavaObjs = map.createFromObjects('Lava', 148, { key: 'lavaSquare' });
-  var lavaObjs = map.createFromObjects('Lava', 140, { key: 'lavaWave' });
+  var lavaWaveObjs = map.createFromObjects('Lava', 140, { key: 'lavaWave' });
   var spikesObjs = map.createFromObjects('Spikes', 250, { key: 'spike' });
   var bridgeObjs = map.getObjectLayer("Bridge")["objects"];
   
@@ -177,6 +178,10 @@ function create() {
   
   lavaObjs.forEach(lavaObject => {
     let lava = this.badStuff.create(lavaObject.x * 0.25, lavaObject.y  * 0.25, 'lavaSquare').setScale(0.25, 0.25)
+  });
+  
+   lavaWaveObjs.forEach(lavaWaveObject => {
+    let lava = this.badStuff.create(lavaWaveObject.x * 0.25, lavaWaveObject.y  * 0.25, 'lavaWave').setScale(0.25, 0.25)
   });
   
   spikesObjs.forEach(spikeObject => {
