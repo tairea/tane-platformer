@@ -54,6 +54,23 @@ function preload() {
   // ====================== player (atlas) =============================
    this.load.atlas( "player", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player.png?v=1598396905743", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkenney_player_atlas.json?v=1598396922994" );
   
+  // TANE !!! (From Ariki Creative)
+  this.load.spritesheet('taneIdle', 
+      
+        'https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftane-idle.png?v=1606611069685',
+        { frameWidth: 128, frameHeight: 128 }
+    );
+  
+  this.load.spritesheet('taneJump', 
+       'https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftane-jump.png?v=1606611070167',
+        { frameWidth: 128, frameHeight: 128 }
+    );
+ 
+  this.load.spritesheet('taneRun', 
+        'https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftane-run.png?v=1606611070188',
+        { frameWidth: 128, frameHeight: 128 }
+    );
+  
   // ====================== Tiled JSON map ===========================
   //this.load.tilemapTiledJSON("map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.4.json?v=1600219625072")
   // this.load.tilemapTiledJSON( "map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.5.json?v=1600815304381" );
