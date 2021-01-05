@@ -587,7 +587,7 @@ class GamePlay extends Phaser.Scene {
     this.load.image("lockYellow", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2FlockYellow.png?v=1609637922248");
     this.load.image(
       "kowhaiwhai",
-      "public/assets/kowhaiwhai.png"
+      "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fkowhaiwhai.png?v=1609829230478"
     );
 
     // ====================== player (atlas) =============================
@@ -632,28 +632,28 @@ class GamePlay extends Phaser.Scene {
     //this.load.tilemapTiledJSON("map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.4.json?v=1600219625072")
     // this.load.tilemapTiledJSON( "map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Ftest-map-2.5.json?v=1600815304381" );
     // this.load.tilemapTiledJSON( "map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fcage-map.json?v=1606610896966" );
-    this.load.tilemapTiledJSON("map", "public/assets/cage-map-latest.json");
+    this.load.tilemapTiledJSON("map", "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fcage-map-latest.json?v=1609829241643");
 
     // ====================== Sound effects ===========================
         // this.load.audio("jump", "assets/sfx/phaseJump1.wav");
         this.load.audio(
           "jump",
           // "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Fquake-jump.ogg?v=1603606002409"
-          "public/assets/jump.ogg"
+          "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fjump.ogg?v=1609829224208"
         );
        
         this.load.audio(
           "hurt",
           // "https://cdn.glitch.com/e46a9959-9af7-4acd-a785-ff3bc76f44d0%2Fquake-hurt.ogg?v=1603606002105"
-          "public/assets/bad.ogg"
+          "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fbad.ogg?v=1609829228399"
         );
         this.load.audio(
           "good",
-          "public/assets/good.ogg"
+          "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fgood.ogg?v=1609829222070"
         );
         this.load.audio(
           "music",
-          "public/assets/music-edited.ogg"
+          "https://cdn.glitch.com/cd67e3a9-81c5-485d-bf8a-852d63395343%2Fmusic-edited.ogg?v=1609829233382"
         );
 
     //  Load the Google WebFont Loader script
